@@ -1,8 +1,3 @@
-/*
-Just a humble request
-Please do not use this code for any unauthorized actions
-If you have any ways to improve it feel free to commit
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
