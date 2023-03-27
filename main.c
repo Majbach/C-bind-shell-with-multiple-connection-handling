@@ -1,3 +1,4 @@
+//gcc main.c -o your_name
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
