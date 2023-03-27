@@ -13,7 +13,7 @@ If you have any ways to improve it feel free to commit
 int main(void)
 {
     int server_fd,client_fd;
-    size_t len=sizeof(clifd);
+    size_t len=sizeof(client_fd);
     struct sockaddr_in server,client;
     server_fd=socket(AF_INET,SOCK_STREAM,0);
     server.sin_addr.s_addr = htons(INADDR_ANY);
@@ -41,6 +41,6 @@ int main(void)
                     break;
             }
     }
-    close(servfd);
+    close(server_fd);
     return 0;
 }
