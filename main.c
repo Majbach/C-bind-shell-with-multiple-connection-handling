@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <signal.h>
 #define PORT 2137
 
 int main(void)
@@ -18,6 +19,7 @@ int main(void)
     if(bind(server_fd,(struct sockaddr*)&server,(size_t)sizeof(server))!=0)
         return -1;
     listen(server_fd,0);
+    signal(SIGCHLD, SIG_IGN);
     while(1)
     {
         client_fd=accept(server_fd,(struct sockaddr*)&client,(socklen_t*)&len);
